@@ -195,11 +195,3 @@ Step 4: Display
 VitalScan is an **educational and informational tool only**. It is NOT a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with questions you may have regarding a medical condition.
 
 ---
-
-<div align="center">
-
-**Built with ❤️ by Aditya Singh**
-
-*If this project helped you, please consider giving it a ⭐ on GitHub!*
-
-</div>
