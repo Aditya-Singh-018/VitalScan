@@ -2,13 +2,7 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
 
-/**
- * Calls the LlamaParse REST API directly using Node's native fetch + FormData.
- * Works on Node.js v18+ (including v24). No npm packages needed.
- * @param {string} filepath - Path to the temporary file on disk
- * @param {string} filename - Original filename
- * @returns {Promise<string>} - Extracted markdown text
- */
+
 async function parseFileWithLlamaParse(filepath, filename) {
   const LLAMA_CLOUD_API_KEY = process.env.LLAMA_CLOUD_API_KEY;
   if (!LLAMA_CLOUD_API_KEY) {
@@ -19,7 +13,7 @@ async function parseFileWithLlamaParse(filepath, filename) {
   const fileBuffer = fs.readFileSync(filepath);
   const blob = new Blob([fileBuffer]);
 
-  // Use Node's native FormData (available from Node v18+)
+  // Use Node's native FormData
   const formData = new FormData();
   formData.append('file', blob, filename);
   formData.append('result_type', 'markdown');
@@ -30,7 +24,6 @@ async function parseFileWithLlamaParse(filepath, filename) {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${LLAMA_CLOUD_API_KEY}`,
-      // Do NOT set Content-Type manually — native fetch sets it with the correct boundary
     },
     body: formData,
   });

@@ -8,21 +8,12 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-async function processMedicalReport(documents) {
+async function processMedicalReport(documents){
   const documentText = documents.map((doc) => doc.text).join("\n");
   console.log({ documentText });
 
   // Check if documentText contains medical terminology or relevant information
-  const medicalKeywords = [
-    "blood",
-    "test",
-    "diagnosis",
-    "report",
-    "health",
-    "scan",
-    "medical",
-    "doctor",
-  ];
+  const medicalKeywords = ["blood","test","diagnosis","report","health","scan","medical","doctor"];
   const containsMedicalContent = medicalKeywords.some((keyword) =>
     documentText.toLowerCase().includes(keyword)
   );
@@ -34,9 +25,9 @@ async function processMedicalReport(documents) {
     };
   }
 
-  try {
+  try{
     const chatCompletion = await groq.chat.completions.create({
-      messages: [
+      messages:[
         {
           role: "system",
           content: `You are a compassionate and knowledgeable medical report interpreter designed to transform complex medical documents into clear, understandable insights. Your goal is to empower patients by:
@@ -106,11 +97,11 @@ Goal: Help the patient understand their health comprehensively and positively`
     const reportAnalysis =
       chatCompletion.choices[0]?.message?.content || "Unable to process report";
 
-    return {
+    return{
       originalDocument: documentText,
       analysis: reportAnalysis,
     };
-  } catch (error) {
+  }catch(error){
     console.error("Error processing medical report:", error);
     throw new Error("Failed to analyze medical report");
   }

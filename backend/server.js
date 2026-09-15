@@ -17,7 +17,7 @@ app.use(express.json());
 // Configure multer for temporary file storage
 const upload = multer({ dest: 'uploads/' });
 
-app.post('/api/upload', upload.single('file'), async (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) =>{
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }
@@ -25,7 +25,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   const filepath = req.file.path;
   const filename = req.file.originalname;
 
-  try {
+  try{
     console.log('Parsing file with LlamaParse...', filename);
 
     // Parse the file using LlamaParse REST API directly
@@ -61,5 +61,5 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`✅ Backend server listening at http://localhost:${port}`);
+  console.log(`Backend server listening at http://localhost:${port}`);
 });
